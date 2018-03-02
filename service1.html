@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<script src="angular.min.js"></script>
+<script>
+var app = angular.module('myApp', []);
+app.service("services",function(){
+this.authen=function(username,password)
+{
+if(username=="sathya" && password=="123"){
+  return true;
+}
+else
+{
+return false;
+}
+}
+});
+
+app.controller('myCtrl', function($scope,$rootScope,services) {
+   $rootScope.login=true;
+   $rootScope.welcome=false;
+   $scope.getvalues=function(){
+   var check=services.authen($scope.Username,$scope.password);
+   
+     if(check == true){
+		  $rootScope.login=false;
+		  $rootScope.welcome=true;
+		  $rootScope.message ="Hai!!!!!!";
+		  
+		  
+	 }
+   }
+   
+});
+app.controller('myCtrl1', function($scope,$rootScope) {
+  $scope.getvalues1=function(){
+	$scope.welcome=false;
+	$rootScope.login=true;
+	}
+	
+});
+</script>
+<body ng-app="myApp">
+<div  ng-controller="myCtrl" ng-show="login">
+Username: <input type="text" ng-model="Username"><br>
+<br><br>
+password: <input type="text" ng-model="password"><br>
+<br>
+<br>
+<input type="submit" name="login" value="login" ng-click="getvalues();">
+
+</div>
+<div ng-controller="myCtrl1" ng-show="welcome">
+welcome {{message}}<br><br>
+<input type="submit" name="logout" value="logout" ng-click="getvalues1();">
+</div>
+</body>
+</html>
